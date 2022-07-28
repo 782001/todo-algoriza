@@ -33,12 +33,13 @@ Widget BuildTaskItem(Map model) => BlocConsumer<AppCubit, AppStates>(
                         width: 40,
                         decoration: BoxDecoration(
                             shape: BoxShape.rectangle,
-                            color:
-                                cubit.value ? Color(0xffff5147) : Colors.white,
+                            color: model['status'] == "Completed"
+                                ? Color(0xffff5147)
+                                : Colors.white,
                             borderRadius: BorderRadius.circular(10)),
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: cubit.value
+                          child: model['status'] == "Completed"
                               ? const Icon(
                                   Icons.check,
                                   size: 20.0,
@@ -47,7 +48,7 @@ Widget BuildTaskItem(Map model) => BlocConsumer<AppCubit, AppStates>(
                               : Icon(
                                   Icons.check_box_outline_blank,
                                   size: 20.0,
-                                  color: cubit.value
+                                  color: model['status'] == "Completed"
                                       ? const Color(0xffff5147)
                                       : Colors.white,
                                 ),

@@ -22,8 +22,9 @@ class AppCubit extends Cubit<AppStates> {
   var RepeatController = TextEditingController();
 
   DateTime selectedDate = DateTime.now().toUtc();
-  String startTime = DateFormat('HH:mm:ss').format(DateTime.now()).toString();
-  String endTime = DateFormat('HH:mm:ss')
+
+  String startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
+  String endTime = DateFormat('HH:mm a')
       .format(DateTime.now().add(const Duration(minutes: 15)))
       .toString();
   int selectedRemind = 10;
@@ -54,20 +55,13 @@ class AppCubit extends Cubit<AppStates> {
     emit(ChangeSelectedDateState());
   }
 
-  bool value = false;
-
   void changeChexBox(model) {
-    value = !value;
-    if (value) {
-      UbdateDataFromDataBase(id: model['id'], status: 'Completed');
-    } else {
+    if (model['status'] == "Completed") {
       UbdateDataFromDataBase(id: model['id'], status: 'UnCompleted');
+    } else {
+      UbdateDataFromDataBase(id: model['id'], status: 'Completed');
     }
-    list.forEach((element) {
-      if (element['status'] == 'Completed')
-        completed.add(element);
-      else if (element['status'] == 'UnCompleted') uncompleted.add(element);
-    });
+    GetDataFromDataBase(database);
     emit(ChangeChekBoxState());
   }
 
@@ -129,7 +123,8 @@ class AppCubit extends Cubit<AppStates> {
             title: 'Reminder',
             body: title),
         schedule: NotificationCalendar.fromDate(
-            date: DateTime.parse(DateController.text + " " + startTime)));
+            date: DateFormat('yyyy-MM-dd hh:mm a')
+                .parse(DateController.text + " " + StartTimeController.text)));
     // "2022-07-27 20:30:04"
 
     //  AwesomeNotifications().cancel(1);

@@ -10,13 +10,15 @@ import 'home_lay_out.dart';
 
 class CreatTaskScreen extends StatelessWidget {
   CreatTaskScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = AppCubit.get(context);
+
+        // var Date = DateFormat.jm().parse(cubit.StartTimeController.text);
+        // var MyTime = DateFormat("hh:mm:ss").format(Date);
 
         var FormKey = GlobalKey<FormState>();
         var startTimeInetial = TimeOfDay.now();
@@ -129,6 +131,8 @@ class CreatTaskScreen extends StatelessWidget {
                                             initialTime: startTimeInetial,
                                           ).then((value) {
                                             cubit.StartTimeController.text =
+                                                // MyTime;
+                                                // DateFormat('HH:mm:ss').format(value).toString();
                                                 value!
                                                     .format(context)
                                                     .toString();
@@ -212,7 +216,7 @@ class CreatTaskScreen extends StatelessWidget {
                                   tapPressed: () {},
                                   onchange: (value) {
                                     cubit.RemindController.text =
-                                        cubit.selectedRepeat;
+                                        cubit.selectedRemind as String;
                                   }),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),

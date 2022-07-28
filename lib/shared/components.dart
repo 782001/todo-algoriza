@@ -113,6 +113,11 @@ Widget DefaultFormField({
             gapPadding: 5,
             borderRadius: BorderRadius.circular(15),
           ),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.transparent,
+            ),
+          ),
           suffixIcon: IconButton(
             onPressed: () {
               suffixPressed!();
